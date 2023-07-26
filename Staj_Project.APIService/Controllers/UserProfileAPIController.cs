@@ -29,7 +29,12 @@ namespace Staj_Project.APIService.Controllers
 
             if (profile == null)
             {
-                return Ok(profile);
+                return BadRequest(new ServiceResponse
+                {
+                    Data= id,
+                    IsSucceed=false,
+                    Message="Böyle bir kullanıcı yok."
+                });
             }
 
             return Ok(profile);
@@ -59,7 +64,12 @@ namespace Staj_Project.APIService.Controllers
 
             if (profile == null)
             {
-                return NotFound("Profil bulunamadı.");
+                return BadRequest(new ServiceResponse
+                {
+                    Data = id,
+                    IsSucceed = false,
+                    Message = "Böyle bir kullanıcı yok."
+                });
             }
 
             return Ok(profile);
