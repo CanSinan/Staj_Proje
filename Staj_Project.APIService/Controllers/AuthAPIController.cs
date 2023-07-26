@@ -7,11 +7,11 @@ namespace Staj_Project.APIService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthAPIController : ControllerBase
     {
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService)
+        public AuthAPIController(IAuthService authService)
         {
             _authService = authService;
 

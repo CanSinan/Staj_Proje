@@ -22,7 +22,6 @@ namespace Staj_Project.APIService.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "CUSTOMER")]
         [Route("customer/{id}")]
         public async Task<IActionResult> GetCustomerProfile(string id)
         {
