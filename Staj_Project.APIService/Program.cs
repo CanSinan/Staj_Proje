@@ -31,8 +31,10 @@ namespace Staj_Project.APIService
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            //
-            //builder.Services.AddScoped<IUserProfileService, UserProfileService>();
+            // Servisi ekledik
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IUserProfileService, UserProfileService>();
             // Identity i yapýlandýrdýk.
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -65,9 +67,7 @@ namespace Staj_Project.APIService
                     };
                 });
 
-            // Servisi ekledik
-
-            builder.Services.AddScoped<IAuthService, AuthService>();
+            
 
             var app = builder.Build();
 
