@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Staj_Project.APIService.Models.OfferModels;
@@ -20,20 +21,21 @@ namespace Staj_Project.APIService.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "CUSTOMER")]
         [Route("sendoffer")]
         public async Task<IActionResult> SendOffer(string userId, [FromBody] Offer offer, string selectedExpertId)
         {
             CustomerProfile user = await _offerService.SendOffer(userId, offer, selectedExpertId);
-
-            if (user == null)
+            if (user == null) 
             {
-                return NotFound("böyle bir Uzman yok"); // Kullanıcı bulunamazsa hata dönecek.
+                return NotFound("Teklif gönderilemedi."); // Kullanıcı bulunamazsa hata dönecek.
             }
 
             return Ok(offer);
         }
 
         [HttpGet]
+        [Authorize(Roles ="CUSTOMER")]
         [Route("get/customer/offers")]
 
         public async Task<IActionResult> GetOfferFromCustomerAsync(string userId)
@@ -56,6 +58,7 @@ namespace Staj_Project.APIService.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "EXPERT")]
         [Route("get/offers/from/customer/forExpert")]
 
         public async Task<IActionResult> GetOfferForExperFromCustomerAsync(string userId)
