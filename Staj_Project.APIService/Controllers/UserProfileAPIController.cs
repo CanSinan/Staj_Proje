@@ -22,6 +22,7 @@ namespace Staj_Project.APIService.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CUSTOMER")]
         [Route("customer/{id}")]
         public async Task<IActionResult> GetCustomerProfile(string id)
         {
@@ -41,8 +42,8 @@ namespace Staj_Project.APIService.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "CUSTOMER")]
         [Route("customer/update/{id}")]
-
         public async Task<IActionResult> UpdateCustomerProfile(string id, [FromBody] CustomerProfile updatedProfile)
         {
             var profile = await _profileService.UpdateCustomerProfileAsync(id, updatedProfile);
@@ -57,6 +58,7 @@ namespace Staj_Project.APIService.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "EXPERT")]
         [Route("expert/{id}")]
         public async Task<IActionResult> GetExpertProfile(string id)
         {
@@ -76,6 +78,7 @@ namespace Staj_Project.APIService.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "EXPERT")]
         [Route("expert/update/{id}")]
 
         public async Task<IActionResult> UpdateExpertProfile(string id, [FromBody] ExpertProfile updatedProfile)

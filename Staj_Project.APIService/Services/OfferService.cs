@@ -23,16 +23,16 @@ namespace Staj_Project.APIService.Services
             // AspNetUsers tablosundaki kullanıcılar arasında Id'si selectedExpertId ile eşleşen bir kullanıcıyı getirmesi lazım.
             return await _context.ExpertProfiles.FindAsync(selectedExpertId);
         }
-        public async Task<CustomerProfile> SendOffer(string userId,[FromBody]Offer offer,string selectedExpertId)
+        public async Task<CustomerProfile> SendOffer(string userId,[FromBody]Offer offer,string selectedExpertId) 
         {
-            CustomerProfile user = await GetCustomerById(userId);
-            if (user == null)
+            CustomerProfile customer = await GetCustomerById(userId);
+            if (customer == null)
             {
                 return null;
             }
-            ExpertProfile user2 = await GetExpertById(selectedExpertId);
+            ExpertProfile expert = await GetExpertById(selectedExpertId);
 
-            if (user2 == null)
+            if (expert == null)
             {
                 return null;
             }
@@ -42,7 +42,7 @@ namespace Staj_Project.APIService.Services
             _context.Offers.Add(offer);
             await _context.SaveChangesAsync();
 
-            return user;
+            return customer;
         }
         public async Task<List<Offer>> GetOfferForExpertFromCustomer(string userId)
         {
